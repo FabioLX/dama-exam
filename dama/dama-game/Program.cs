@@ -9,14 +9,20 @@ namespace dama_game
         {
             var p1 = new Player("Matteo");
             var p2 = new PlayerMediumComputer("CPU1");
-            //raccoltamosse
+            IScoreObserver observerScore1 = new Player1Scorer();
+            IScoreObserver observerScore2 = new Player2Scorer();
+            IScoreObserved tableScore = new Chessboard();
+            //raccoglitore mosse
             List<Chessboard> movePlayer1 = new List<Chessboard>();
             List<Chessboard> movePlayer2 = new List<Chessboard>();
-            int scorePlayer1=0;
-            int scorePlayer2 = 0;
+            //int scorePlayer1 = 0;
+            //int scorePlayer2 = 0;
 
             
             IPlayer toMove = p1;
+            tableScore.RegisterObserver(observerScore1);
+            tableScore.RegisterObserver(observerScore2);
+
 
             int xs, ys, xe, ye;
             var b = new Chessboard(p1, p2);

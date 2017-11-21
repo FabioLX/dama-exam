@@ -78,6 +78,8 @@ public class Player : IPlayer
     {
         return Name[0].ToString().ToUpper();
     }
+
+  
 }
 
 public sealed class PlayerEasyComputer : Player
@@ -101,5 +103,25 @@ public sealed class PlayerHardComputer : Player
     public PlayerHardComputer(string name) : base(name)
     {
         difficulty = 3;
+    }
+}
+
+class Player1Scorer : IScoreObserver
+{
+    int score = 0;
+    public void NotifyScore(int score)
+    {
+        score++;
+        Console.WriteLine("Score player1: "+ score);
+    }
+}
+
+class Player2Scorer : IScoreObserver
+{
+    int score = 0;
+    public void NotifyScore(int score)
+    {
+        score++;
+        Console.WriteLine("Score player2: " + score);
     }
 }

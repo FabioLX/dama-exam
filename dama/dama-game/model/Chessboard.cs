@@ -1,17 +1,24 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
-public sealed class Chessboard
+public sealed class Chessboard :IScoreObserved
 {
     private readonly IPlayer player1;
     private readonly IPlayer player2;
     public IPlayer Winner { get; private set; }
     public IPlayer Loser { get; private set; }
+    List<IScoreObserver> scoreObservers = new List<IScoreObserver>();
     protected int player1Score = 0;
     protected int player2Score = 0;
+    Thread ScoreTd;
 
     private Box[,] boxes;
 
+    public Chessboard() {
+        ScoreTd = new Thread(new ThreadStart(ScoreCounter));
+    }
     public Chessboard(IPlayer p1, IPlayer p2)
     {
         this.player1 = p1;
@@ -178,6 +185,27 @@ public sealed class Chessboard
     }
 
     
+    void IScoreObserved.RegisterObserver(IScoreObserver scoreobs)
+    {
+        scoreObservers.Add(scoreobs);
+        
+    }
+
+    void IScoreObserved.UnregisterObserver(IScoreObserver scoreobs)
+    {
+        scoreObservers.Remove(scoreobs);
+    }
+
+    void ScoreCounter()
+    {
+        foreach(IScoreObserver obs in scoreObservers)
+        {
+
+            obs.NotifyScore(player1Score);
+            //TODO raccogliere i risultati in UNICA stampa!
+        }
+
+    }
 
     public class Box
     {
