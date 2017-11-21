@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace dama_game
 {
@@ -8,6 +9,13 @@ namespace dama_game
         {
             var p1 = new Player("Matteo");
             var p2 = new PlayerMediumComputer("CPU1");
+            //raccoltamosse
+            List<Chessboard> movePlayer1 = new List<Chessboard>();
+            List<Chessboard> movePlayer2 = new List<Chessboard>();
+            int scorePlayer1=0;
+            int scorePlayer2 = 0;
+
+            
             IPlayer toMove = p1;
 
             int xs, ys, xe, ye;

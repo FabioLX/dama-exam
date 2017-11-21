@@ -7,8 +7,8 @@ public sealed class Chessboard
     private readonly IPlayer player2;
     public IPlayer Winner { get; private set; }
     public IPlayer Loser { get; private set; }
-    private int player1Score = 0;
-    private int player2Score = 0;
+    protected int player1Score = 0;
+    protected int player2Score = 0;
 
     private Box[,] boxes;
 
@@ -64,6 +64,7 @@ public sealed class Chessboard
     {
         var stb = new StringBuilder();
         stb.AppendLine("  0 1 2 3 4 5 6 7");
+        //TODO aggiungere LETTERE
         for (int x = 0; x < 8; x++)
         {
             stb.Append(x);
@@ -130,19 +131,24 @@ public sealed class Chessboard
 
         if (arrivalBox.IsFree())
         {
+            //occupa box di arrivo
             arrivalBox.Owner = p;
+            //svuota box partenza
             startBox.Free();
 
+            //se c'e' salto
             if (jumpedBox != null)
             {
                 jumpedBox.Free();
                 if (p == player1)
                 {
                     player1Score++;
+                    //TODO scatta salovataggio movimento BOX - observer
                 }
                 else
                 {
                     player2Score++;
+                    //TODO scatta salovataggio movimento BOX - observer
                 }
             }
         }
@@ -154,9 +160,26 @@ public sealed class Chessboard
         {
             throw new MoveException("Box is owned by enemy.");
         }
+
+
+       
+    }
+    //ritorno punteggio
+    public int GetScorePlayer(int playerNumber)
+    {
+        if (playerNumber == 1)
+        {
+            return player1Score;
+        }
+        else
+        { return player2Score; }
+
+
     }
 
-    sealed class Box
+    
+
+    public class Box
     {
         public Box(int x, int y, IPlayer p = null)
         {
@@ -166,7 +189,9 @@ public sealed class Chessboard
         }
         public IPlayer Owner { get; set; }
         public int vertical;//1-8
+
         public int horizontal;//A-H
+        //TODO metodo conversione Lettere/numeri
 
         public bool IsFree()
         {
@@ -187,4 +212,5 @@ public sealed class Chessboard
             else return Owner.ToString();
         }
     }
+
 }
