@@ -31,8 +31,11 @@ namespace dama_game
             {
                 try{
                 Console.Clear();// <--- screen CLEAR is here!
-
-                Console.WriteLine(b.ToString());
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(@"Player {0} score: " + b.GetScorePlayer(1) +" <---> "+ "Player {1} score: " + b.GetScorePlayer(2),p1.Name,p2.Name);
+                    Console.ResetColor();
+                    Console.WriteLine(b.ToString());
+                    
 
                 Console.WriteLine("Turn: {0}", toMove.Name);
 
