@@ -13,8 +13,9 @@ namespace dama_game
             IScoreObserver observerScore2 = new Player2Scorer();
             IScoreObserved tableScore = new Chessboard();
             //raccoglitore mosse
-            List<Chessboard> movePlayer1 = new List<Chessboard>();
-            List<Chessboard> movePlayer2 = new List<Chessboard>();
+            List<Chessboard> moveListPlayer1 = new List<Chessboard>();
+            List<Chessboard> moveListPlayer2 = new List<Chessboard>();
+
             //int scorePlayer1 = 0;
             //int scorePlayer2 = 0;
 
@@ -29,32 +30,51 @@ namespace dama_game
             do
             {
                 try{
-                    Console.Clear();
+                Console.Clear();// <--- screen CLEAR is here!
+
                 Console.WriteLine(b.ToString());
 
                 Console.WriteLine("Turn: {0}", toMove.Name);
 
                 Console.WriteLine("Let move from...");
                 Console.Write("V:");
-                xs = int.Parse(Console.ReadLine());
-                Console.WriteLine();
-                Console.Write("H:");
-                ys = int.Parse(Console.ReadLine());
 
-                Console.WriteLine("Let move to...");
+                    char s = Console.ReadKey().KeyChar;
+                    xs = b.PositionConverter(s);//addon
+
+                    Console.WriteLine();
+                Console.Write("H:");
+                    ys = (int)Char.GetNumericValue(Console.ReadKey().KeyChar);
+                    Console.WriteLine();
+                    Console.WriteLine("Let move to...");
                 Console.Write("V:");
-                xe = int.Parse(Console.ReadLine());
-                Console.WriteLine();
+                //xe = int.Parse(Console.ReadLine());
+                    char s2 = Console.ReadKey().KeyChar;
+                    xe = b.PositionConverter(s2);//addon
+
+                    Console.WriteLine();
                 Console.Write("H:");
-                ye = int.Parse(Console.ReadLine());
+                    ye = (int)Char.GetNumericValue(Console.ReadKey().KeyChar);
+                    Console.WriteLine();
 
-                b.MovePawn(toMove, xs, ys, xe, ye);
 
-                if (toMove == p1)
-                    toMove = p2;
-                else
-                    toMove = p1;
-                }catch(Exception e){
+
+
+                    b.MovePawn(toMove, xs, ys, xe, ye);
+
+                    if (toMove == p1)
+                    {
+                        moveListPlayer1.Add(b);//salvo mosse
+                        toMove = p2;
+                    }
+                    else
+                    {
+                        moveListPlayer2.Add(b);//salvo mosse
+                        toMove = p1;
+                    }
+                    //<--------ESITO MOSSA OK
+                }
+                catch(Exception e){
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Press to continue...");
                     Console.ReadLine();

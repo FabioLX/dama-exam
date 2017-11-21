@@ -72,17 +72,23 @@ public sealed class Chessboard :IScoreObserved
         var stb = new StringBuilder();
         stb.AppendLine("  0 1 2 3 4 5 6 7");
         //TODO aggiungere LETTERE
-        for (int x = 0; x < 8; x++)
+        string lines = "ABCDEFGH";
+        //for (int x = 0; x < 8; x++)
+        int x = 0;
+        foreach (char l in lines)
         {
-            stb.Append(x);
+            stb.Append(l);
             for (int y = 0; y < 8; y++)
             {
-                stb.Append("|" + boxes[x, y].ToString());
+                string player = boxes[x, y].ToString();//ottengo il player
+                 stb.Append("|" + player);
+           
             }
             stb.AppendLine("|");
+            x++;
         }
-
-        return stb.ToString();
+    
+            return stb.ToString();
     }
 
     bool FillablePosition(int x, int y)
@@ -168,9 +174,23 @@ public sealed class Chessboard :IScoreObserved
             throw new MoveException("Box is owned by enemy.");
         }
 
-
-       
+               
     }
+    //conversione lettera-numero colonna
+    public int PositionConverter(char c)//addon
+    {
+        int index = 0;
+        char[] lines = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if (c == lines[i])
+                index = i;
+        }
+        //Console.WriteLine(index);
+        return index;
+    }
+
     //ritorno punteggio
     public int GetScorePlayer(int playerNumber)
     {
