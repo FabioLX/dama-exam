@@ -140,7 +140,14 @@ public sealed class Chessboard :IScoreObserved
         {
             throw new MoveException("Illegal move.");
         }
-
+        else if(Math.Abs(xStart - xEnd) ==2 && Math.Abs(yStart - yEnd) ==1)
+        {
+            throw new MoveException("Illegal move.");
+        }
+        else if (Math.Abs(xStart - xEnd) == 1 && Math.Abs(yStart - yEnd) == 2)
+        {
+            throw new MoveException("Illegal move.");
+        }
 
         if (arrivalBox.IsFree())
         {
@@ -200,8 +207,6 @@ public sealed class Chessboard :IScoreObserved
         }
         else
         { return player2Score; }
-
-
     }
 
     
