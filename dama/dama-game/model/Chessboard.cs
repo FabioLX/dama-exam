@@ -109,8 +109,10 @@ public sealed class Chessboard :IScoreObserved
             throw new MoveException("Empty box or it is not your.");
 
         var arrivalBox = boxes[xEnd, yEnd];
+        
+         
 
-        if (Math.Abs(xStart - xEnd) == 2 && Math.Abs(yStart - yEnd) == 2)
+        if (Math.Abs(xStart - xEnd) == 2 && Math.Abs(yStart - yEnd) == 2 )
         {
             //It is a jump
             int xInter, yInter;
@@ -140,6 +142,7 @@ public sealed class Chessboard :IScoreObserved
         {
             throw new MoveException("Illegal move.");
         }
+        //correzione bug movimento
         else if(Math.Abs(xStart - xEnd) ==2 && Math.Abs(yStart - yEnd) ==1)
         {
             throw new MoveException("Illegal move.");
@@ -163,13 +166,36 @@ public sealed class Chessboard :IScoreObserved
                 if (p == player1)
                 {
                     player1Score++;
-                    //TODO scatta salovataggio movimento BOX - observer
+                    if (xEnd == 7) {
+                        //controllo vincita
+                        Winner = player1;
+                        Loser = player2;
+                        Console.WriteLine("winner {0} ", p.Name);
+                        //Console.ReadLine();
+                    }
+                    
                 }
                 else
                 {
                     player2Score++;
-                    //TODO scatta salovataggio movimento BOX - observer
+                    if (xEnd == 7)
+                    {
+                        //controllo vincita
+                        Winner = player2;
+                        Loser = player1;
+                        Console.WriteLine("winner {0} ", p.Name);
+                        //Console.ReadLine();
+                    }
+
                 }
+               
+            }
+            //vincita fila finale
+            if (xEnd == 7)
+            {
+                Winner = p;
+                Console.WriteLine("winner is {0} ",p.Name);
+                //Console.ReadLine();
             }
         }
         else if (arrivalBox.Owner.Equals(p))
@@ -227,7 +253,7 @@ public sealed class Chessboard :IScoreObserved
         {
 
             obs.NotifyScore(player1Score);
-            //TODO raccogliere i risultati in UNICA stampa!
+            
         }
 
     }

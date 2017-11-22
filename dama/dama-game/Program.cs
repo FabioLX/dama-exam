@@ -101,20 +101,21 @@ namespace dama_game
 
 
             //simulazione a fine partita  - STAND BY!
-            Console.WriteLine("Press to simulate legal move (5,1) -> (4,2)...");
+            //Console.WriteLine("Press to simulate legal move (5,1) -> (4,2)...");
+            //Console.ReadLine();
+
+            //b.MovePawn(p2, 5, 1, 4, 2);
+
+            //Console.WriteLine(b.ToString());
+
+            //Console.WriteLine("Press to simulate play...");
+            //Console.ReadLine();
+
+            //b.SimulatePlay();
+
+            //Console.WriteLine("Winner is {0} ", b.Winner.Name);            
+            //Console.WriteLine("Loser is {0} ", b.Loser.Name);
             Console.ReadLine();
-
-            b.MovePawn(p2, 5, 1, 4, 2);
-
-            Console.WriteLine(b.ToString());
-
-            Console.WriteLine("Press to simulate play...");
-            Console.ReadLine();
-
-            b.SimulatePlay();
-
-            Console.WriteLine("Winner is {0} with score {1}", b.Winner.Name, b.Winner.Score);            
-            Console.WriteLine("Loser is {0} with score {1}", b.Loser.Name, b.Loser.Score);
             
         }
 
